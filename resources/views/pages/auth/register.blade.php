@@ -1,4 +1,4 @@
-<x-layouts::auth>
+<x-layouts::auth :title="__('新規会員登録')">
     <div class="flex flex-col gap-6">
         <x-auth-header :title="__('新規会員登録')" :description="__('')" />
 

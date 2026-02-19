@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Database\QueryException;
+use Illuminate\Database\UniqueConstraintViolationException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,5 +16,28 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        // $exceptions->render(function (QueryException $e, $request) {
+        //     return back()
+        //         ->withInput()
+        //         ->with('error', '同一の書籍が既に登録されています。');
+        // });
+        // $exceptions->render(function (UniqueConstraintViolationException $e, $request) {
+        //     return back()
+        //         ->withInput()
+        //         ->with('error', '同一の書籍が既に登録されています。');
+        // });
+        $exceptions->render(function (\Throwable $e, $request) {
+            if($e instanceof UniqueConstraintViolationException){
+                return back()
+                    ->withInput()
+                    ->with('error', '同一の書籍が既に登録されています。');
+            }
+
+            if($e instanceof QueryException){
+                return back()
+                    ->withInput()
+                    ->with('error', 'データベースエラーが発生しました。');
+            }
+
+        });
     })->create();

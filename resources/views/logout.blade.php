@@ -3,7 +3,7 @@
 @section('title', 'ログアウト')
 
 @section('content')
-    <a href="{{ route('mypage') }}">マイページに戻る</a>
+    <flux:link href="{{ route('mypage') }}">マイページに戻る</flux:link>
     <br>
     <form method="POST" action="{{ route('logout') }}">
         @csrf
