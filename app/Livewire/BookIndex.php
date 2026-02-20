@@ -21,10 +21,12 @@ class BookIndex extends Component
         $query = Book::query();
         $query->where('user_id', auth()->id()); //user_idがログインユーザの値と一致しているものだけ取得
 
+        //検索
         if($this->search !== ''){
 
             $query->where(function($query){
-                $query->where('title', 'like', '%'.$this->search.'%');
+                $keyword = addcslashes($this->search, '\%_'); //特殊文字に対するエスケープ
+                $query->where('title', 'like', '%'.$keyword.'%');
             });
 
         }

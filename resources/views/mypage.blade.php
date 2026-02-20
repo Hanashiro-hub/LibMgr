@@ -24,5 +24,9 @@
         </flux:table.rows>
     </flux:table>
 
-    <flux:button variant="subtle"><a href="{{route('mypage.logout')}}">ログアウト</a></flux:button>
+    <!-- 確認画面へ遷移せず直接ログアウト -->
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <flux:button variant="subtle" type="submit">ログアウト</flux:button>
+    </form>
 @endsection

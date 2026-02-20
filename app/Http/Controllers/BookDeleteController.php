@@ -15,6 +15,7 @@ class BookDeleteController extends Controller
 
     public function Delete(Book $book)
     {
+        abort_unless($book->user_id === auth()->id(), 403);
         $book->delete();
         return redirect()->route('book');
     }

@@ -18,8 +18,6 @@ Route::get('/', function () {
 
 Route::middleware('auth')->prefix('mypage')->group(function () {
     Route::view('/', 'mypage')->name('mypage');
-    Route::view('/logout', 'logout')->name('mypage.logout');
-    //Route::view('/book', 'book')->name('book');
 });
 
 Route::middleware('auth')->prefix('book')->group(function () {
@@ -29,8 +27,8 @@ Route::middleware('auth')->prefix('book')->group(function () {
     Route::get('{book}/delete', [BookDeleteController::class, 'ReturnDelete'])->name('return.book-delete');
 
     Route::post('/register', [BookController::class, 'register'])->name('register.book');
-    Route::put('/{book}', [BookEditController::class, 'edit_put'])->name('edit.book');
-    Route::delete('/{book}', [BookDeleteController::class, 'Delete'])->name('delete.book');
+    Route::put('/{book}/edit', [BookEditController::class, 'edit_put'])->name('edit.book');
+    Route::delete('/{book}/delete', [BookDeleteController::class, 'Delete'])->name('delete.book');
 });
 
 require __DIR__.'/settings.php';

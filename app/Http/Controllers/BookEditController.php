@@ -15,6 +15,7 @@ class BookEditController extends Controller
 
     public function edit_put(Request $request, Book $book)
     {
+        abort_unless($book->user_id === auth()->id(), 403);
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'author' => 'required|string|max:255',
